@@ -4,10 +4,7 @@ import pytest
 
 from vllm import LLM, SamplingParams
 
-from ..utils import fork_new_process_for_each_test
 
-
-@fork_new_process_for_each_test
 def test_plugin(dummy_opt_path):
     os.environ["VLLM_PLUGINS"] = ""
     with pytest.raises(Exception) as excinfo:
@@ -15,7 +12,6 @@ def test_plugin(dummy_opt_path):
     assert "are not supported for now" in str(excinfo.value)
 
 
-@fork_new_process_for_each_test
 def test_oot_registration(dummy_opt_path):
     os.environ["VLLM_PLUGINS"] = "register_dummy_model"
     prompts = ["Hello, my name is", "The text does not matter"]

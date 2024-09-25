@@ -11,7 +11,7 @@ import pytest
 
 from vllm.logger import init_logger
 
-from ..utils import compare_two_settings, fork_new_process_for_each_test
+from ..utils import compare_two_settings
 
 logger = init_logger("test_pipeline_parallel")
 
@@ -42,7 +42,6 @@ VLLM_MULTI_NODE = os.getenv("VLLM_MULTI_NODE", "0") == "1"
         (2, 1, 1, 0, 0, "adept/fuyu-8b", "mp"),
     ],
 )
-@fork_new_process_for_each_test
 def test_compare_tp(TP_SIZE, PP_SIZE, EAGER_MODE, CHUNKED_PREFILL,
                     TRUST_REMOTE_CODE, MODEL_NAME, DIST_BACKEND):
     if VLLM_MULTI_NODE and DIST_BACKEND == "mp":
